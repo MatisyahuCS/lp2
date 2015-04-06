@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class NumeroMuitoGrande {
     
     // Método para leitura dos valores
@@ -24,12 +25,11 @@ public class NumeroMuitoGrande {
     
     // Método de Soma
     public void somaBig (int []x, int []y, int []soma){
-        int c = 0, aux = 0;
+        int c = 0;
         for (int i = 29; i >= 0; i--) {
             if (i == 0) {
                 if ((soma[i] + x[i] + y[i]) > 10) {
                     System.out.println(" Menor que 30 algarismos, por favor! ");
-                    aux = 1;
                     break;
                 }
             }
@@ -37,6 +37,7 @@ public class NumeroMuitoGrande {
             if (soma[i] >= 10) {
                 soma[i] = soma[i] - 10;
                 c = 1;
+                soma[i - 1] = 1;
             }
             if (c == 1) {
                 c = 0;
@@ -57,27 +58,40 @@ public class NumeroMuitoGrande {
         System.out.println(" ");
     } 
     
-    // Método INACABADO de Multiplicação 
-    // public void multBig (int []x, int []y, int []mult){
-    //    int i, j;
-    //    for (j = 30; j > 0; j--){
-    //        int sobe = 0;
-    //        for (i = j; i > 0; i--){
-    //            mult[i] = ((x[i] * y[j]) + sobe) % 10;
-    //            sobe = ((x[i] * y[j])) / 10;
-    //            if ((x[i] & y[j]) == 0 ){
-    //                mult[i] += sobe;  
-    //            }
-    //        }
-    //    }
-    //    System.out.print (" O resultado da multiplicacao é: ");
-    //    for (i = 0; i <= 30; i++){
-    //        if(mult[i] >= 0){
-    //            System.out.print(mult[i]);
-    //        }
-    //    }
-    //   System.out.println(" ");        
-    // }
+    // Método de Multiplicação 
+    public void multBig (int []x, int []y, int []mult){
+        int i, j, aux;        
+        for (i = 0; i < 30; i++){
+            mult[i] = 0;
+        }
+        for (j = 29; j >= 0; j--){
+            int sobeM = 0; // Vai para Multiplicação
+            int result = j;
+            i = 29;
+            while ((i > 0) && (result > 0)){
+                mult[result] += ((x[j] * y[i]) + sobeM) % 10;
+                sobeM = ((x[i] * y[j]) + sobeM) / 10;
+                result--;
+                i--;
+            }
+        }
+        int sobeS = 0; // Vai para Soma
+        for (i = 29; i >= 0; i--){
+            aux = (mult[i] + sobeS) % 10;
+            sobeS = mult[i] / 10;
+            mult[i] = aux;
+        }
+        
+        System.out.print (" O resultado da multiplicacao é: ");
+        i = 0; // Loop para "anulação" dos zero(s) restantes dos vetores
+        while (mult[i] == 0){
+          i++;
+        }
+        for (; i < 30; i++) {
+            System.out.print(mult[i]);
+        }
+        System.out.println(" ");     
+    }
     
     public static void main (String [] args){
         NumeroMuitoGrande n = new NumeroMuitoGrande ();
@@ -93,6 +107,6 @@ public class NumeroMuitoGrande {
         v2 = n.transformaVetor(n2); // Recebe num vetor os caracteres da String     
         
         n.somaBig (v1, v2, vf); // Chamada Soma
-        // n.multBig (v1, v2, vf); Chamada método da Multiplicação
+        n.multBig (v1, v2, vf);// Chamada método da Multiplicação
     }
 }
