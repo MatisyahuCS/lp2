@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class NumeroMuitoGrande {
     
     // Método para leitura dos valores
@@ -68,12 +67,12 @@ public class NumeroMuitoGrande {
             int sobeM = 0; // Vai para Multiplicação
             int result = j;
             i = 29;
-            while ((i > 0) && (result > 0)){
+            do{
                 mult[result] += ((x[j] * y[i]) + sobeM) % 10;
                 sobeM = ((x[i] * y[j]) + sobeM) / 10;
                 result--;
                 i--;
-            }
+            }while((i > 0) && (result > 0));
         }
         int sobeS = 0; // Vai para Soma
         for (i = 29; i >= 0; i--){
@@ -84,9 +83,9 @@ public class NumeroMuitoGrande {
         
         System.out.print (" O resultado da multiplicacao é: ");
         i = 0; // Loop para "anulação" dos zero(s) restantes dos vetores
-        while (mult[i] == 0){
+        do{
           i++;
-        }
+        }while (mult[i] == 0);
         for (; i < 30; i++) {
             System.out.print(mult[i]);
         }
