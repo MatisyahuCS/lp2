@@ -59,7 +59,7 @@ public class NumeroMuitoGrande {
     
     // Método de Multiplicação 
     public void multBig (int []x, int []y, int []mult){
-        int i, j, aux;        
+        int i, j;        
         for (i = 0; i < 30; i++){
             mult[i] = 0;
         }
@@ -76,9 +76,8 @@ public class NumeroMuitoGrande {
         }
         int sobeS = 0; // Vai para Soma
         for (i = 29; i >= 0; i--){
-            aux = (mult[i] + sobeS) % 10;
+            mult[i] = (mult[i] + sobeS) % 10;
             sobeS = mult[i] / 10;
-            mult[i] = aux;
         }
         
         System.out.print (" O resultado da multiplicacao é: ");
